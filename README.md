@@ -2,6 +2,8 @@
 
 Browse an actor's IMDb filmography as a poster grid or one poster at a time, without leaving their page.
 
+Visit the [product page](https://imdb.voltura.se/) for a preview and installation steps.
+
 ## Install in Google Chrome
 
 1. Install the **Tampermonkey** extension from the [Chrome Web Store](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo).
