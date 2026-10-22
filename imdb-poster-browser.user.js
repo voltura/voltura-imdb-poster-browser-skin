@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IMDb Poster Browser
 // @namespace    voltura.imdb.poster-browser
-// @version      1.4.1
+// @version      1.4.2
 // @description  Browse an actor's film posters in a grid or swipeable viewer without leaving their page.
 // @match        https://www.imdb.com/name/nm*
 // @match        https://imdb.com/name/nm*
@@ -126,6 +126,8 @@
     }
   }, {root:$('content'),rootMargin:'150px'});
   function ratingResult(t) {
+    const current = rtResults.get(t.id);
+    if (current && (current.key !== t.title + ':' + t.year + ':' + t.type || current.expires <= Date.now())) rtResults.delete(t.id);
     if (!rtResults.has(t.id)) {
       try {
         const cached = GM_getValue('rt:' + t.id, null);
@@ -198,7 +200,7 @@
           });
           result = {...findRating(html,t),key:t.title + ':' + t.year + ':' + t.type,expires:Date.now()+86400000};
           try { GM_setValue('rt:' + id,result); } catch { /* Cache is optional. */ }
-        } catch { result = {score:null,url:rtSearch(t)}; }
+        } catch { result = {score:null,url:rtSearch(t),key:t.title + ':' + t.year + ':' + t.type,expires:Date.now()+60000}; }
         rtResults.set(id,result);
         for (const link of root.querySelectorAll('[data-rt-id]')) if (link.dataset.rtId === id) updateRating(link,t);
         if (dialog.open && $('sort').value === 'rt') {
@@ -282,6 +284,9 @@
     return element;
   }
   function render() {
+    const focused = root.activeElement;
+    const focusedId = focused?.closest('.poster-card')?.dataset.titleId;
+    const focusedRating = focused?.classList.contains('rt-rating');
     rtObserver.disconnect();
     rtQueue.clear();
     $('grid').hidden = !gridMode;
@@ -302,7 +307,7 @@
     if (gridMode) {
       const fragment = document.createDocumentFragment();
       filtered.forEach((t,i)=>{
-        const card = document.createElement('div'); card.className='poster-card';
+        const card = document.createElement('div'); card.className='poster-card';card.dataset.titleId=t.id;
         const b = document.createElement('button'); b.type='button'; b.className='card';
         b.setAttribute('aria-label','View poster: '+t.title);
         if(t.image) {
@@ -318,6 +323,11 @@
         meta.append(rt);card.append(b,meta);fragment.append(card);bindRating(rt,t);
       });
       $('grid').replaceChildren(fragment);
+      if (focusedId) {
+        const card = [...$('grid').children].find(card=>card.dataset.titleId===focusedId);
+        const rating = card?.querySelector('.rt-rating');
+        (focusedRating && !rating?.hidden ? rating : card?.querySelector('.card'))?.focus({preventScroll:true});
+      }
     } else if(filtered.length) {
       const t=filtered[index];
       fillPlaceholder($('missing'),t);
