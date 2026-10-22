@@ -17,7 +17,7 @@ If the button does not appear, check that Tampermonkey and the script are enable
 
 ## How to use
 
-- Click **Poster grid** to see the posters together. Use **↑** / **↓** to scroll, or scroll normally. Select a poster to open it.
+- The **Poster grid** opens by default. Use **↑** / **↓** to scroll, or scroll normally. Select a poster to open it on its own.
 - In the single-poster view, use **←** / **→**, the on-screen arrows, or swipe to browse. **Home** and **End** jump to the first and last title.
 - Search by title, choose **Movies** or **All acting credits**, and sort by newest, oldest, title, or **Highest rated**. Unrated titles appear last when sorting by rating.
 - Posters that are missing or fail to load show the title and year instead.

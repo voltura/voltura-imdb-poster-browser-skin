@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IMDb Poster Browser
 // @namespace    voltura.imdb.poster-browser
-// @version      1.2.0
+// @version      1.2.1
 // @description  Browse an actor's film posters in a grid or swipeable viewer without leaving their page.
 // @match        https://www.imdb.com/name/nm*
 // @match        https://imdb.com/name/nm*
@@ -100,7 +100,7 @@
   document.body.append(host);
   const $ = id => root.getElementById(id);
   const dialog = root.querySelector('dialog');
-  let items = [], filtered = [], index = 0, gridMode = false, actorGroups = [];
+  let items = [], filtered = [], index = 0, gridMode = true, actorGroups = [];
   let returnFocus = null, savedOverflow = '', loading = false, refreshTimer, loadNotice = '';
   const imageUrl = (url, width=700) => {
     if (!url) return '';
@@ -216,6 +216,7 @@
   function step(delta) {if(gridMode||!filtered.length)return; index=Math.min(filtered.length-1,Math.max(0,index+delta));render();}
   function open(id) {
     returnFocus=document.activeElement;
+    gridMode=!id;
     collect();$('search').value='';applyFilters(id);
     if(id&&!filtered.some(t=>t.id===id)){$('type').value='all';applyFilters(id);}
     if(!dialog.open){savedOverflow=document.documentElement.style.overflow;document.documentElement.style.overflow='hidden';dialog.showModal();}
