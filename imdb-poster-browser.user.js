@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IMDb Poster Browser
 // @namespace    voltura.imdb.poster-browser
-// @version      1.1.0
+// @version      1.2.0
 // @description  Browse an actor's film posters in a grid or swipeable viewer without leaving their page.
 // @match        https://www.imdb.com/name/nm*
 // @match        https://imdb.com/name/nm*
@@ -86,7 +86,6 @@
           <input id="search" type="search" placeholder="Find a film…" aria-label="Find a film">
           <select id="type" aria-label="Title types"><option value="movie">Movies</option><option value="all">All acting credits</option></select>
           <select id="sort" aria-label="Sort posters"><option value="new">Newest first</option><option value="old">Oldest first</option><option value="title">Title A–Z</option><option value="rating">Highest rated</option></select>
-          <button id="load" type="button">Load more credits</button>
         </div>
         <div id="message" role="status" aria-live="polite"></div>
         <div id="content">
@@ -102,7 +101,7 @@
   const $ = id => root.getElementById(id);
   const dialog = root.querySelector('dialog');
   let items = [], filtered = [], index = 0, gridMode = false, actorGroups = [];
-  let returnFocus = null, savedOverflow = '', loading = false, refreshTimer;
+  let returnFocus = null, savedOverflow = '', loading = false, refreshTimer, loadNotice = '';
   const imageUrl = (url, width=700) => {
     if (!url) return '';
     try {
@@ -178,11 +177,7 @@
     $('viewer').hidden = gridMode || !filtered.length;
     $('view').textContent = gridMode ? 'Single poster' : 'Poster grid';
     $('view').setAttribute('aria-pressed',String(gridMode));
-    const more = getLoadButton();
-    $('load').hidden = !more && !loading;
-    $('load').disabled = loading;
-    $('load').textContent = loading ? 'Loading…' : 'Load more credits';
-    $('message').textContent = filtered.length + ' titles · ' + items.length + ' acting credits loaded' + (more ? ' · Load more credits for older titles.' : '') + (filtered.length ? ' · ' : ' · No matching titles.');
+    $('message').textContent = filtered.length + ' titles · ' + items.length + ' acting credits loaded' + (loading ? ' · Loading more credits automatically…' : loadNotice) + (filtered.length ? ' · ' : ' · No matching titles.');
     if (filtered.length) {
       for (const arrow of (gridMode ? ['↑','↓'] : ['←','→'])) {
         const key = document.createElement('kbd'); key.textContent=arrow; $('message').append(key, ' ');
@@ -225,6 +220,7 @@
     if(id&&!filtered.some(t=>t.id===id)){$('type').value='all';applyFilters(id);}
     if(!dialog.open){savedOverflow=document.documentElement.style.overflow;document.documentElement.style.overflow='hidden';dialog.showModal();}
     $('close').focus();
+    loadNotice='';loadCredits();
   }
   function getLoadButton() {
     for(const row of document.querySelectorAll('li[data-testid^="cred_"]')) {
@@ -259,13 +255,24 @@
   $('stage').addEventListener('pointerdown',e=>{if(e.target.closest('button')||e.button!==0)return;start={x:e.clientX,y:e.clientY,id:e.pointerId};$('stage').setPointerCapture(e.pointerId);});
   $('stage').addEventListener('pointerup',e=>{if(!start||e.pointerId!==start.id)return;const dx=e.clientX-start.x,dy=e.clientY-start.y;start=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)step(dx<0?1:-1);});
   $('stage').addEventListener('pointercancel',()=>{start=null;});
-  $('load').addEventListener('click',async()=>{
-    const b=getLoadButton();if(!b||loading)return;
-    loading=true;const keep=filtered[index]?.id;render();b.click();
-    const before=items.length;
-    for(let n=0;n<30;n++){await new Promise(r=>setTimeout(r,300));collect();if(items.length>before)break;}
-    loading=false;collect();applyFilters(keep);
-  });
+  async function loadCredits() {
+    if(loading||!getLoadButton())return;
+    loading=true;render();
+    try {
+      while(dialog.open) {
+        const button=getLoadButton();if(!button)break;
+        const before=items.length;button.click();
+        for(let n=0;n<30&&dialog.open;n++) {
+          await new Promise(r=>setTimeout(r,300));collect();
+          if(items.length>before)break;
+        }
+        if(!dialog.open)break;
+        const keep=filtered[index]?.id;applyFilters(keep);
+        if(items.length<=before) {loadNotice=' · IMDb did not return more credits. Reopen the browser to retry.';break;}
+      }
+    } catch {loadNotice=' · Could not load more credits. Reopen the browser to retry.';}
+    finally {loading=false;const keep=filtered[index]?.id;collect();applyFilters(keep);}
+  }
   document.addEventListener('click',e=>{
     if(e.button!==0||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)return;
     const a=e.target.closest?.('a[href*="/title/tt"]');

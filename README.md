@@ -21,7 +21,7 @@ If the button does not appear, check that Tampermonkey and the script are enable
 - In the single-poster view, use **←** / **→**, the on-screen arrows, or swipe to browse. **Home** and **End** jump to the first and last title.
 - Search by title, choose **Movies** or **All acting credits**, and sort by newest, oldest, title, or **Highest rated**. Unrated titles appear last when sorting by rating.
 - Posters that are missing or fail to load show the title and year instead.
-- Click **Load more credits**, when available, to include more of IMDb's filmography.
+- Remaining acting credits load automatically when you open the poster browser. Progress appears above the posters.
 - Click **Open movie** to open the title's IMDb page in a new tab. Press **Esc** or click **×** to close the browser.
 
 The script uses the acting credits currently available on the IMDb page. It runs on actor/person pages (`imdb.com/name/nm…`). IMDb page changes may affect it.
