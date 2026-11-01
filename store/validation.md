@@ -15,6 +15,8 @@ Date: 1 November 2026.
 
 - Separate headless Chromium live check: IMDb returned HTTP 403 for Luc Besson. This is not a functional live-data pass. No fixture screenshots are used as store screenshots.
 - Regular Chrome: the user installed the standalone extension and disabled the userscript. Real IMDb posters and Rotten Tomatoes scores loaded. After reloading version 1.5.1, Luc Besson's credits loaded automatically from 40 to 135 unique titles, including 106 movie titles. Single-poster view displayed The Fifth Element, IMDb 7.6 and RT 71%; closing restored the page. Genuine 1280 × 800 JPEG screenshots of the grid and single-poster view are in `store/screenshots/`.
+- Bette Midler's live actress page also loaded from 33 to 79 unique titles automatically, including 45 movie titles. Real RT results included Divine Madness at 100% and Hocus Pocus at 42%.
 - GitHub Pages: commit `b8092cf` built successfully. Product page, privacy page and versioned ZIP returned HTTP 200. Downloaded ZIP SHA-256 matches the tested package.
 - Real Rotten Tomatoes request through `createRatingHandler` with native Node fetch: passed, returning 111,384 characters of search HTML with media rows for The Fifth Element. This verifies the remote endpoint and worker request code, but not Chrome host-permission enforcement or live IMDb parsing.
-- Store submission: pending. See `store/README.md` for the current confirmed store status.
+- Version 1.5.1's public ZIP returned HTTP 200 and matched the package SHA-256 above after GitHub Pages built commit `9c1515f`.
+- Store upload succeeded: item `enkeicnpgjfgaacchhbbdfhiblogekgb`, draft. Description names Voltura AB and contains no reference to a userscript manager. Entertainment, English, homepage/support links and store icon saved. Submission is pending the remaining images and privacy/distribution forms. See `store/README.md` for the current confirmed status.

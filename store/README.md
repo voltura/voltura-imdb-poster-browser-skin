@@ -2,11 +2,12 @@
 
 ## Status
 
-- Extension ID: not assigned (no item uploaded yet).
-- Review status: not submitted.
+- Extension ID: `enkeicnpgjfgaacchhbbdfhiblogekgb`.
+- Review status: draft; version 1.5.1 uploaded, not submitted yet.
+- Product developer: Voltura AB.
 - Intended distribution: free, public, all available regions; publish automatically after approval.
 - Package: `dist/voltura-imdb-poster-browser-1.5.1.zip` (run `npm run build`).
-- Publisher dashboard: https://chrome.google.com/webstore/devconsole
+- Publisher dashboard: https://chrome.google.com/webstore/devconsole/875eeba0-33ce-400d-b5d0-5b5b68abd0be/enkeicnpgjfgaacchhbbdfhiblogekgb/edit
 
 Update this status only after the dashboard confirms an upload or submission. Do not describe the product as available in the store until the public listing is accessible.
 
@@ -28,11 +29,11 @@ Turn an IMDb person’s filmography into a wall of posters, without leaving thei
 - Remaining credits load automatically. Missing posters show the title and year.
 - Navigate with arrow keys, Home/End, clickable side arrows, and swipes. Open a title on IMDb or a critic score on Rotten Tomatoes.
 
-Open any IMDb person page and click Browse posters in the bottom-right corner. The grid opens with the highest IMDb ratings first. No Tampermonkey, account, subscription, or API key is required.
+Open any IMDb person page and click Browse posters in the bottom-right corner. The grid opens with the highest IMDb ratings first. No account, subscription, or API key is required.
 
 Rotten Tomatoes scores load on demand and are cached locally for 24 hours. Sorting by Rotten Tomatoes loads scores for matching titles. Matching requires the same title and release year; unavailable scores remain hidden. Site changes or unavailable third-party responses may affect results.
 
-Free, independent software by Voltura. Not affiliated with IMDb, Rotten Tomatoes, or Tampermonkey. Film information and poster artwork come from IMDb; critic scores come from Rotten Tomatoes.
+Free, independent software by Voltura AB. Not affiliated with IMDb or Rotten Tomatoes. Film information and poster artwork come from IMDb; critic scores come from Rotten Tomatoes.
 
 Website: https://imdb.voltura.se/
 
@@ -58,9 +59,9 @@ Disclose **Website content** as handled, including locally processed IMDb credit
 
 ## Reviewer instructions
 
-No credentials or special setup are required. Install the extension, then open https://www.imdb.com/name/nm0000108/ (Luc Besson) or https://www.imdb.com/name/nm0000204/ (Natalie Portman), refresh if the page was already open, and click Browse posters at the bottom right.
+No credentials or special setup are required. Install the extension, then open https://www.imdb.com/name/nm0000108/ (Luc Besson) or https://www.imdb.com/name/nm0000541/ (Bette Midler), refresh if the page was already open, and click Browse posters at the bottom right.
 
-Verify the default poster grid and IMDb ordering, search and Movies/All credits filter, every sort option, automatic credit loading and credit roles. Select a poster, use arrow keys or side arrows, Home/End, open IMDb/Rotten Tomatoes links, and close with Escape. Rotten Tomatoes scores require network access and matching third-party results; missing scores are expected for unmatched titles. No Tampermonkey is required.
+Verify the default poster grid and IMDb ordering, search and Movies/All credits filter, every sort option, automatic credit loading and credit roles. Select a poster, use arrow keys or side arrows, Home/End, open IMDb/Rotten Tomatoes links, and close with Escape. Rotten Tomatoes scores require network access and matching third-party results; missing scores are expected for unmatched titles.
 
 ## Publication checklist
 
