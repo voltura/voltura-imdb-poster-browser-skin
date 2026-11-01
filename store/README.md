@@ -45,6 +45,7 @@ Privacy policy: https://imdb.voltura.se/privacy.html
 
 - Store icon: `dist/extension/icons/128.png`.
 - Screenshots: `store/screenshots/luc-besson-grid.jpg` and `store/screenshots/luc-besson-single.jpg` — actual standalone extension on live IMDb, at 1280 × 800. No userscript or fixture screenshots are used for the store listing.
+- Promotional assets: `store/promo/small-promo.png` (440 × 280), `store/promo/marquee-promo.png` (1400 × 560), and the approximately 30-second 1080p promo MP4. Original vectors and reproducible generation instructions are in `store/promo/README.md`. Both tiles were uploaded and saved as draft assets on 1 November 2026. Google blocks submitting listing changes while the existing extension review is pending; these draft assets are not yet confirmed as part of a submitted revision.
 
 ## Privacy and permissions
 
