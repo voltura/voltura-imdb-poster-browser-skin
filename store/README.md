@@ -4,6 +4,7 @@
 
 - Extension ID: `enkeicnpgjfgaacchhbbdfhiblogekgb`.
 - Review status: **Pending review**; version **1.5.1** submitted on **1 November 2026**. The dashboard confirmed “Your extension was submitted for review.”
+- Resubmitted on **1 November 2026 at approximately 21:51 CET** with the global promo video and both promo tiles, after the owner requested cancellation of the earlier review. Google confirmed the new submission; automatic publication after approval remained checked.
 - Product developer: Voltura AB.
 - Distribution: **free of charge**, **public**, **all regions**. **Publish automatically after review** was checked when submitting.
 - Package: `dist/voltura-imdb-poster-browser-1.5.1.zip` (run `npm run build`).
@@ -45,7 +46,8 @@ Privacy policy: https://imdb.voltura.se/privacy.html
 
 - Store icon: `dist/extension/icons/128.png`.
 - Screenshots: `store/screenshots/luc-besson-grid.jpg` and `store/screenshots/luc-besson-single.jpg` — actual standalone extension on live IMDb, at 1280 × 800. No userscript or fixture screenshots are used for the store listing.
-- Promotional assets: `store/promo/small-promo.png` (440 × 280), `store/promo/marquee-promo.png` (1400 × 560), and the approximately 30-second 1080p promo MP4. Original vectors and reproducible generation instructions are in `store/promo/README.md`. Both tiles were uploaded and saved as draft assets on 1 November 2026. Google blocks submitting listing changes while the existing extension review is pending; these draft assets are not yet confirmed as part of a submitted revision.
+- Promotional assets: `store/promo/small-promo.png` (440 × 280), `store/promo/marquee-promo.png` (1400 × 560), and the approximately 30-second 1080p promo MP4. Original vectors and reproducible generation instructions are in `store/promo/README.md`. Both tiles and the global video URL were saved before the confirmed resubmission on 1 November 2026.
+- Global promo video: https://www.youtube.com/watch?v=2qSl6gYvuIM — unlisted on the owner's Joakim Skoglund channel, embedding enabled. YouTube confirmed publication and completed copyright checks with no issues found.
 
 ## Privacy and permissions
 
