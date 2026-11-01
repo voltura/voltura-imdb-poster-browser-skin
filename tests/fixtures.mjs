@@ -33,3 +33,21 @@ export function ratingHtml(t) {
   if (t.title === 'Golf') return row() + row();
   return row();
 }
+
+export function modernFixtureHtml() {
+  let html = fixtureHtml();
+  for (const category of ['actor','writer','producer','director']) {
+    html = html.replaceAll(`"groupingId":"${category}"`,`"groupingId":"amzn.test.${category}","text":"${category}"`);
+  }
+  html = html.replaceAll('cred_actor_tt1000001','cred_amzn.test.actor_1').replaceAll('cred_director_tt1000008','cred_amzn.test.director_8');
+  return html.replace('</body>', `
+    <button id="name-filmography-filter-amzn.test.actor">Actor 7</button>
+    <button id="name-filmography-filter-amzn.test.writer">Writer 1</button>
+    <button id="name-filmography-filter-amzn.test.producer">Producer 2</button>
+    <button id="name-filmography-filter-amzn.test.director">Director 2</button>
+    <label id="producer-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="accordion-item-amzn.test.producer-Previous">Previous 2</label>
+    <div id="new-credits"></div>
+    <li data-testid="cred_amzn.test.soundtrack_1"><a class="ipc-metadata-list-summary-item__t" href="/title/tt9999999/">Excluded soundtrack</a></li>
+    <script>document.getElementById('producer-toggle').addEventListener('click', function() {this.setAttribute('aria-expanded','true');document.getElementById('new-credits').innerHTML='<li data-testid="cred_amzn.test.producer_9"><a class="ipc-metadata-list-summary-item__t" href="/title/tt1000009/">India</a><span class="ipc-metadata-list-summary-item__li">1990</span></li>';});</script>
+    </body>`);
+}

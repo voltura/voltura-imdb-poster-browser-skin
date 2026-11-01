@@ -4,7 +4,7 @@ import {readFile, mkdir, mkdtemp} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {titles, fixtureHtml, ratingHtml} from './fixtures.mjs';
+import {titles, fixtureHtml, ratingHtml, modernFixtureHtml} from './fixtures.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const out = path.join(root, 'output/playwright');
@@ -154,6 +154,20 @@ try {
       const other = await context.newPage(); await other.goto(url);
       assert.equal(await other.locator('#imdb-poster-browser').count(),0); await other.close();
     }
+  });
+  await check('current IMDb opaque category IDs and label-based department accordions load all supported credits', async () => {
+    const modern = await context.newPage();
+    await modern.route('https://www.imdb.com/name/nm8888888/',route => route.fulfill({contentType:'text/html',body:modernFixtureHtml()}));
+    await modern.goto('https://www.imdb.com/name/nm8888888/');
+    const modernHost = modern.locator('#imdb-poster-browser');
+    await modernHost.locator('#launch').click();
+    await modernHost.locator('#type').selectOption('all');
+    await wait(async () => (await modernHost.locator('#message').textContent()).includes('9 titles loaded'),'modern department loading');
+    assert.equal(await modernHost.locator('.poster-card').count(),9);
+    assert.equal(await modernHost.getByRole('button',{name:'View poster: India',exact:true}).count(),1);
+    assert.equal(await modernHost.getByRole('button',{name:'View poster: Hotel',exact:true}).count(),1);
+    assert.equal(await modernHost.getByRole('button',{name:'View poster: Excluded soundtrack',exact:true}).count(),0);
+    await modern.close();
   });
   const original = await readFile(path.join(root,'imdb-poster-browser.user.js'),'utf8');
   await check('userscript arriving after the extension does not duplicate UI', async () => {

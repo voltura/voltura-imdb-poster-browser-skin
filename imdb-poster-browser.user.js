@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IMDb Poster Browser
 // @namespace    voltura.imdb.poster-browser
-// @version      1.5.0
+// @version      1.5.1
 // @description  Browse acting, writing, producing and directing credits as posters without leaving an IMDb person's page.
 // @match        https://www.imdb.com/name/nm*
 // @match        https://imdb.com/name/nm*
@@ -118,8 +118,22 @@
   let items = [], filtered = [], index = 0, gridMode = true;
   const creditLabels = {actor:'Actor',actress:'Actress',writer:'Writer',producer:'Producer',director:'Director'};
   const creditCategory = value => String(value || '').toLowerCase().match(/^(actor|actress|writer|producer|director)$/)?.[1];
-  const creditRows = () => [...document.querySelectorAll('li[data-testid^="cred_"],li[data-testid^="unrel_cred_"]')]
-    .filter(row => /^(?:unrel_)?cred_(actor|actress|writer|producer|director)_/.test(row.getAttribute('data-testid') || ''));
+  function creditGroups() {
+    const groups = new Map(Object.keys(creditLabels).map(category => [category,category]));
+    // IMDb also uses opaque category IDs. Resolve these from its visible department filters.
+    for (const button of document.querySelectorAll('[id^="name-filmography-filter-"]')) {
+      const label = button.textContent.trim().match(/^(Actor|Actress|Writer|Producer|Director)(?=\s|\d|$)/i)?.[1];
+      const category = creditCategory(label);
+      if (category) groups.set(button.id.slice('name-filmography-filter-'.length),category);
+    }
+    return groups;
+  }
+  function rowCategory(row, groups) {
+    const value = (row.getAttribute('data-testid') || '').replace(/^(?:unrel_)?cred_/,'');
+    return [...groups].find(([id]) => value.startsWith(id + '_'))?.[1];
+  }
+  const creditRows = (groups=creditGroups()) => [...document.querySelectorAll('li[data-testid^="cred_"],li[data-testid^="unrel_cred_"]')]
+    .filter(row => rowCategory(row,groups));
   const creditText = t => Object.entries(t.credits || {}).map(([category,roles]) => creditLabels[category] + (roles.length ? ': ' + roles.join(', ') : '')).join(' · ');
   function mergeCredit(found,title,category,roles=[]) {
     const old = found.get(title.id);
@@ -257,9 +271,10 @@
         }
       }
     } catch { $('actor').textContent = document.querySelector('h1')?.textContent || 'Filmography'; }
-    for (const row of creditRows()) {
+    const groups = creditGroups();
+    for (const row of creditRows(groups)) {
       const test = row.getAttribute('data-testid') || '';
-      const category = test.match(/^(?:unrel_)?cred_(actor|actress|writer|producer|director)_/)[1];
+      const category = rowCategory(row,groups);
       const a = row.querySelector('a.ipc-metadata-list-summary-item__t') || row.querySelector('a[href*="/title/tt"]');
       const id = a?.getAttribute('href')?.match(/\/title\/(tt\d+)/)?.[1];
       if (!id) continue;
@@ -372,8 +387,11 @@
   }
   function getLoadButton() {
     // Open each supported department, including those collapsed on writer/director pages.
-    for (const button of document.querySelectorAll('button[aria-expanded="false"]')) {
-      if (/^(Actor|Actress|Writer|Producer|Director)\b/i.test(button.textContent.trim())) return button;
+    const groups = creditGroups();
+    for (const button of document.querySelectorAll('button[aria-expanded="false"],[role="button"][aria-expanded="false"]')) {
+      const controls = button.getAttribute('aria-controls') || '';
+      if (/^(Actor|Actress|Writer|Producer|Director)\b/i.test(button.textContent.trim()) ||
+          [...groups.keys()].some(id => controls === 'accordion-item-' + id + '-Previous' || controls === 'accordion-item-' + id + '-Upcoming')) return button;
     }
     for(const row of creditRows()) {
       const section=row.closest('.ipc-accordion__item__content_inner');

@@ -16,9 +16,10 @@ if (version !== manifest.version || version !== JSON.parse(await read('package.j
 const body = script.replace(/^\/\/ ==UserScript==[\s\S]*?\/\/ ==\/UserScript==\s*/, '');
 if (body === script) throw new Error('Userscript metadata not found');
 const adapter = (await read('extension/adapter.js')).replace(/\r\n/g, '\n');
+if (!adapter.includes('  // USER_SCRIPT_BODY\n')) throw new Error('Adapter insertion point not found');
 const files = {
   'manifest.json': Buffer.from(JSON.stringify(manifest, null, 2) + '\n'),
-  'content.js': Buffer.from(adapter + body + '\n})();\n'),
+  'content.js': Buffer.from(adapter.replace('  // USER_SCRIPT_BODY\n', '  // USER_SCRIPT_BODY\n' + body + '\n')),
   'worker.js': Buffer.from((await read('extension/worker.js')).replace(/\r\n/g, '\n'))
 };
 // Render the existing vector artwork; transparent padding meets store-icon guidance.

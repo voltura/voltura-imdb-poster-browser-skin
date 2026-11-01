@@ -1,11 +1,11 @@
-# Chrome Web Store submission — 1.5.0
+# Chrome Web Store submission — 1.5.1
 
 ## Status
 
 - Extension ID: not assigned (no item uploaded yet).
 - Review status: not submitted.
 - Intended distribution: free, public, all available regions; publish automatically after approval.
-- Package: `dist/voltura-imdb-poster-browser-1.5.0.zip` (run `npm run build`).
+- Package: `dist/voltura-imdb-poster-browser-1.5.1.zip` (run `npm run build`).
 - Publisher dashboard: https://chrome.google.com/webstore/devconsole
 
 Update this status only after the dashboard confirms an upload or submission. Do not describe the product as available in the store until the public listing is accessible.
@@ -43,7 +43,7 @@ Privacy policy: https://imdb.voltura.se/privacy.html
 ## Images
 
 - Store icon: `dist/extension/icons/128.png`.
-- Screenshots: `store/screenshots/` — capture the actual standalone extension on live IMDb, grid and single-poster views, at 1280 × 800. Do not substitute old userscript screenshots or fixtures for the store listing.
+- Screenshots: `store/screenshots/luc-besson-grid.jpg` and `store/screenshots/luc-besson-single.jpg` — actual standalone extension on live IMDb, at 1280 × 800. No userscript or fixture screenshots are used for the store listing.
 
 ## Privacy and permissions
 

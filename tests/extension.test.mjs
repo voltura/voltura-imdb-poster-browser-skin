@@ -86,7 +86,7 @@ async function adapter({saved = {}, storageError = false, send, href = sender.ur
     }
   };
   vm.createContext(sandbox);
-  await vm.runInContext(source + '\nglobalThis.probe = {GM_getValue, GM_setValue, GM_xmlhttpRequest};\n})();', sandbox);
+  await vm.runInContext(source.replace('  // USER_SCRIPT_BODY', 'globalThis.probe = {GM_getValue, GM_setValue, GM_xmlhttpRequest};'), sandbox);
   return {...sandbox.probe, sandbox, writes, removed, timers, change: (...args) => onChanged(...args)};
 }
 
@@ -160,7 +160,7 @@ test('adapter skips unrelated pages and an existing userscript instance', async 
 });
 
 test('ZIP has a root manifest, only required permissions, and exact shared feature body', async () => {
-  const bytes = await readFile(new URL('../dist/voltura-imdb-poster-browser-1.5.0.zip', import.meta.url));
+  const bytes = await readFile(new URL('../dist/voltura-imdb-poster-browser-1.5.1.zip', import.meta.url));
   const files = unzipSync(bytes);
   const manifest = JSON.parse(strFromU8(files['manifest.json']));
   assert.equal(manifest.manifest_version, 3);

@@ -56,3 +56,4 @@
   }
 
   // USER_SCRIPT_BODY
+})();

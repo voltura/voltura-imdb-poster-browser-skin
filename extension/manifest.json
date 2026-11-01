@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Voltura IMDb Poster Browser",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Browse IMDb filmographies as posters. Search and sort acting, writing, producing and directing credits with IMDb and RT scores.",
   "homepage_url": "https://imdb.voltura.se/",
   "permissions": ["storage"],
