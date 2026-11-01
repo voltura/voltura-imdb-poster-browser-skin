@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Privacy policy for the Voltura IMDb Poster Browser Chrome extension and Tampermonkey userscript.">
+  <link rel="canonical" href="https://imdb.voltura.se/privacy.html">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <title>Privacy — Voltura IMDb Poster Browser</title>
+  <style>
+    :root{color-scheme:dark;font:17px/1.7 system-ui,sans-serif;color:#f7f6f1;background:#111113}body{margin:0}main{max-width:800px;margin:auto;padding:36px 24px 72px}a{color:#f5c518;text-underline-offset:4px}a:focus-visible{outline:3px solid #f5c518;outline-offset:4px}h1{font-size:clamp(32px,6vw,48px);line-height:1.15}h2{font-size:23px;margin-top:34px}p,li{color:#c3c3ca}.date{font-size:14px;color:#aaaab3}code{overflow-wrap:anywhere}
+  </style>
+</head>
+<body><main>
+  <a href="./">← IMDb Poster Browser by Voltura</a>
+  <h1>Privacy policy</h1>
+  <p class="date">Effective 1 November 2026 · Chrome extension and Tampermonkey userscript, version 1.5.0</p>
+  <p>Voltura IMDb Poster Browser displays IMDb filmographies as posters and retrieves Rotten Tomatoes critic scores. It is free and requires no account. Both versions provide the same browsing features.</p>
+  <h2>IMDb page content</h2>
+  <p>On IMDb person pages, the software reads the person’s name and filmography information, including title IDs, titles, years, credit categories, roles, ratings, and poster URLs. It processes this information in your browser to display, search, filter, and sort posters. It can expand IMDb’s credit sections to load remaining credits. It does not send this filmography to Voltura.</p>
+  <h2>Requests to other websites</h2>
+  <p>Poster images load directly from IMDb’s Amazon-hosted image servers. When you open the poster browser, Rotten Tomatoes scores load for visible titles. Selecting Rotten Tomatoes sorting requests scores for all matching titles. These requests send each film or series title as a search query directly to <code>www.rottentomatoes.com</code>. Results are matched locally by title, year, and title type.</p>
+  <p>Rotten Tomatoes requests omit cookies and authentication credentials. The receiving websites still receive ordinary network information such as your IP address. IMDb and its image hosts handle page, credit, and image requests under their own policies. Opening an IMDb or Rotten Tomatoes link is normal navigation and is subject to that website’s policies. Text entered in the poster browser’s title-filter field is processed locally and is not sent as a separate search query.</p>
+  <h2>Local cache and retention</h2>
+  <p>The standalone extension stores score results, matched URLs, IMDb title IDs, titles, years, title types, and expiry times in <code>chrome.storage.local</code>. The userscript uses Tampermonkey’s script storage. These caches are separate and are not synchronized by the software.</p>
+  <p>Successful lookups, including results without a matching score, are reused for up to 24 hours. Failed requests may be remembered in memory for one minute. Expired results are not reused; the extension removes expired stored records when it next starts on a person page. Storage errors do not prevent poster browsing.</p>
+  <p>To remove the extension’s cache, uninstall the extension. To remove the userscript’s cache, delete the script and its stored data in Tampermonkey. Your browser or userscript manager may retain data in backups you separately configure.</p>
+  <h2>Permissions and data use</h2>
+  <p>The extension runs on IMDb person pages, uses local storage for rating caches, and requests access to Rotten Tomatoes for critic scores. It does not read unrelated websites, passwords, private messages, payment information, or your browser’s history database.</p>
+  <p>There is no analytics, advertising, tracking SDK, or developer-operated backend in the extension or userscript. Voltura does not receive, sell, or use your filmography browsing data for advertising. Data is used only to provide the poster browser and its ratings. All executable extension code is bundled with the download.</p>
+  <h2>This website</h2>
+  <p>The product and privacy pages are hosted by GitHub Pages. Visiting them makes ordinary requests to GitHub and any domain delivery infrastructure. Downloading the extension or userscript does not send subsequent extension browsing activity to this website. See <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub’s privacy statement</a>.</p>
+  <h2>Contact and changes</h2>
+  <p>For support or privacy questions, <a href="https://github.com/voltura/voltura-imdb-poster-browser-skin/issues">open an issue in the project repository</a>. Do not include private information in a public issue. Future changes to data handling will be reflected on this page.</p>
+  <p>This project is independent of IMDb, Rotten Tomatoes, and Tampermonkey.</p>
+</main></body>
+</html>

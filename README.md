@@ -1,10 +1,26 @@
-# Voltura IMDb Poster Browser Skin
+# Voltura IMDb Poster Browser
 
 Browse a person's IMDb acting, writing, producing, and directing filmography as a poster grid or one poster at a time, without leaving their page.
 
 Visit the [product page](https://imdb.voltura.se/) for a preview and installation steps.
 
-## Install in Google Chrome
+Two free installation methods offer the same features: a standalone Chrome extension and the original Tampermonkey userscript.
+
+## Standalone Chrome extension
+
+The Chrome Web Store listing is not published yet. The downloadable extension works without Tampermonkey:
+
+1. Download [version 1.5.0](https://imdb.voltura.se/downloads/voltura-imdb-poster-browser-1.5.0.zip) and extract the ZIP into a folder you will keep.
+2. Open `chrome://extensions`, enable **Developer mode**, select **Load unpacked**, and choose the extracted folder containing `manifest.json`.
+3. Open or refresh an IMDb person page and click **Browse posters**.
+
+To update this unpacked installation, extract the latest ZIP into the same folder, reload the extension at `chrome://extensions`, and refresh IMDb. Once the store version is published, Chrome will manage updates for installations from the store.
+
+Only IMDb person-page access, Rotten Tomatoes access, and local storage are used. See the [privacy policy](https://imdb.voltura.se/privacy.html).
+
+If both methods are installed, the first to start supplies the interface and the other skips it. To choose which one runs, disable the other and refresh IMDb. Rating caches remain separate.
+
+## Tampermonkey userscript — install in Google Chrome
 
 1. Install the **Tampermonkey** extension from the [Chrome Web Store](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo).
 2. Open `chrome://extensions` in Chrome's address bar. Find **Tampermonkey**, click **Details**, and turn on **Allow User Scripts**.
@@ -29,8 +45,16 @@ Each poster shows the person’s credit categories and available role details in
 
 The script uses the acting, writing, producing, and directing credits available on the IMDb page. It runs on person pages (`imdb.com/name/nm…`). Tampermonkey also requests access to `www.rottentomatoes.com` to retrieve critic scores, without an API key. IMDb or Rotten Tomatoes page changes may affect it.
 
-## Update
+## Update the userscript
 
 Copy the latest contents of [imdb-poster-browser.user.js](imdb-poster-browser.user.js), replace the code in your existing Tampermonkey script, save with **Ctrl+S**, and refresh IMDb. Keep only one copy enabled. Allow access to `www.rottentomatoes.com` if Tampermonkey asks.
 
 This project is independent of IMDb, Rotten Tomatoes, and Tampermonkey. Poster images and title information come from IMDb; critic scores come from Rotten Tomatoes.
+
+## Develop and package
+
+Requires Node.js 24 or later. Run `npm ci`, `npm run build`, `npm test`, then `node node_modules/playwright/cli.js install chromium`, `npm run test:browser`, and `npm run test:website`.
+
+The root userscript is the shared feature source and is not rewritten by the build. `extension/adapter.js` wraps its unchanged body with Chrome storage and messaging adapters. `extension/worker.js` performs anonymous, restricted Rotten Tomatoes requests. All executable code ships inside the package.
+
+The build generates `dist/extension/` for unpacked testing, a versioned ZIP and SHA-256 digest in `dist/`, and a downloadable ZIP in `downloads/`. The ZIP is deterministic for the same inputs and dependencies. Keep the userscript, package, and manifest versions in sync. Store publication materials and status are in [store/README.md](store/README.md).

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Browse IMDb film posters with IMDb and Rotten Tomatoes ratings. Sort by either score with this free Voltura userscript for Chrome and Tampermonkey.">
+  <meta name="description" content="Browse IMDb filmographies as posters with IMDb and Rotten Tomatoes scores. Choose the free standalone Chrome extension or the Tampermonkey userscript.">
   <meta name="theme-color" content="#111113">
   <link rel="canonical" href="https://imdb.voltura.se/">
   <title>IMDb Poster Browser — Voltura</title>
@@ -13,7 +13,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Voltura">
   <meta property="og:title" content="IMDb Poster Browser — Voltura">
-  <meta property="og:description" content="Turn an actor’s IMDb page into a wall of movie posters. Compare IMDb and Rotten Tomatoes ratings, sort by either score, and discover what to watch next. Free Chrome userscript.">
+  <meta property="og:description" content="Turn an IMDb filmography into a wall of posters. Compare IMDb and Rotten Tomatoes scores. Free standalone Chrome extension and Tampermonkey userscript.">
   <meta property="og:url" content="https://imdb.voltura.se/">
   <meta property="og:image" content="https://imdb.voltura.se/assets/social-card.jpg?v=1.4.2">
   <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
   <meta property="og:image:alt" content="IMDb Poster Browser by Voltura, with an actor’s film posters, IMDb scores, and Rotten Tomatoes critic ratings.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="IMDb Poster Browser — Voltura">
-  <meta name="twitter:description" content="Browse an actor’s movie posters with IMDb and Rotten Tomatoes ratings. Free Chrome userscript with sorting by either score.">
+  <meta name="twitter:description" content="Browse IMDb filmographies as posters with IMDb and Rotten Tomatoes scores. Choose the free Chrome extension or Tampermonkey userscript.">
   <meta name="twitter:image" content="https://imdb.voltura.se/assets/social-card.jpg?v=1.4.2">
   <meta name="twitter:image:alt" content="IMDb Poster Browser by Voltura, with an actor’s film posters, IMDb scores, and Rotten Tomatoes critic ratings.">
   <style>
@@ -44,8 +44,8 @@
         <p class="eyebrow">IMDb Poster Browser · For IMDb person pages</p>
         <h1 id="hero-title">A filmography.<br>A wall of <span>possibilities.</span></h1>
         <p class="intro">Turn a <strong>person’s IMDb page</strong> into a wall of movie posters. Compare IMDb and Rotten Tomatoes ratings, then explore their films in a grid or one poster at a time.</p>
-        <div class="actions"><a class="button" href="#install">Add to Chrome <span aria-hidden="true">↓</span></a><a href="https://github.com/voltura/voltura-imdb-poster-browser-skin/blob/main/imdb-poster-browser.user.js">View the script ↗</a></div>
-        <p class="subtle">Version 1.5.0 · Free Chrome userscript · Requires Tampermonkey</p>
+        <div class="actions"><a class="button" href="#install">Get the Chrome extension <span aria-hidden="true">↓</span></a><a href="#userscript-install">Install the userscript ↗</a></div>
+        <p class="subtle">Version 1.5.0 · Both versions are free · Same features</p>
       </section>
       <figure class="preview"><img src="assets/poster-browser.png?v=1.4.2" alt="Alexander Skarsgård’s film posters sorted by Rotten Tomatoes rating, with compact IMDb scores and red Fresh tomato icons." width="3410" height="1812" fetchpriority="high"><figcaption><span>Alexander Skarsgård’s films, sorted by Rotten Tomatoes rating.</span><span>IMDb and critic scores, side by side.</span></figcaption></figure>
       <section class="features" aria-label="Features">
@@ -54,7 +54,15 @@
         <article><span class="number">03 / COMPARE</span><h3>Two scores. One glance.</h3><p>Compact Rotten Tomatoes links sit beside IMDb scores. A red tomato means Fresh (60% or higher); a green splat means Rotten (below 60%). Missing scores stay hidden. Select a critic score to open Rotten Tomatoes.</p></article>
       </section>
       <section class="install" id="install" aria-labelledby="install-title">
-        <div class="install-intro"><p class="eyebrow">Get started</p><h2 id="install-title">Your browser.<br>A better view.</h2><p>Install Tampermonkey once, then add the script. You’ll find a new <strong>Browse posters</strong> button on IMDb person pages.</p><a class="subtle" href="https://github.com/voltura/voltura-imdb-poster-browser-skin#readme">Read the full guide ↗</a></div>
+        <div class="install-intro"><p class="eyebrow">Standalone Chrome extension</p><h2 id="install-title">One extension.<br>All the posters.</h2><p>The same poster browser, with no Tampermonkey or user-script permission needed. Browse acting, writing, producing, and directing credits with both IMDb and Rotten Tomatoes scores.</p><a class="button" href="downloads/voltura-imdb-poster-browser-1.5.0.zip" download>Download extension ZIP ↓</a><p class="subtle">Version 1.5.0 · Free · <a href="privacy.html">Privacy policy</a></p></div>
+        <div><h3>Install the standalone version</h3><p class="subtle">The Chrome Web Store listing is not published yet. Until it is available, install the downloadable package in Chrome:</p><ol class="steps">
+          <li><h3>Download and extract</h3><p>Download the extension ZIP and extract it to a folder you’ll keep on your computer.</p></li>
+          <li><h3>Load the extension</h3><p>Open <code>chrome://extensions</code>, enable <strong>Developer mode</strong>, click <strong>Load unpacked</strong>, and select the extracted folder containing <code>manifest.json</code>.</p></li>
+          <li><h3>Browse IMDb</h3><p>Open or refresh a person’s IMDb page and click <strong>Browse posters</strong>. No Tampermonkey installation is required.</p></li>
+        </ol><p class="subtle">Already using the userscript? You can switch to the extension. Cached ratings are separate, and installing both shows only one poster browser. To choose which version runs, disable the other and refresh IMDb.</p></div>
+      </section>
+      <section class="install" id="userscript-install" aria-labelledby="userscript-title">
+        <div class="install-intro"><p class="eyebrow">Tampermonkey userscript</p><h2 id="userscript-title">Your browser.<br>A better view.</h2><p>Prefer the original method? Install Tampermonkey once, then add the script. You’ll find the same <strong>Browse posters</strong> button on IMDb person pages.</p><a class="subtle" href="https://github.com/voltura/voltura-imdb-poster-browser-skin#readme">Read the full guide ↗</a></div>
         <ol class="steps">
           <li><h3>Install Tampermonkey</h3><p>Add <a href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo">Tampermonkey from the Chrome Web Store</a>.</p></li>
           <li><h3>Allow user scripts</h3><p>Type <code>chrome://extensions</code> in Chrome’s address bar. Find Tampermonkey, open <strong>Details</strong>, and enable <strong>Allow User Scripts</strong>.</p></li>
@@ -62,9 +70,9 @@
           <li><h3>Go exploring</h3><p>Allow access to <strong>www.rottentomatoes.com</strong> if Tampermonkey asks, then open or refresh a person’s IMDb page and click <strong>Browse posters</strong>. The grid opens with the highest IMDb ratings first. Select a poster to view it on its own.</p></li>
         </ol>
       </section>
-      <aside class="help"><h3>Already installed? Update your existing script.</h3><p>Copy the latest script above, open your existing IMDb Poster Browser script in Tampermonkey, replace its contents, and save with <kbd>Ctrl</kbd> + <kbd>S</kbd>. Keep only one copy enabled, then refresh IMDb.</p><p>Rotten Tomatoes ratings load as posters come into view and are cached for 24 hours. Sorting by Rotten Tomatoes loads ratings for all matching titles; progress appears above the posters.</p><p>Can’t see the button? Check that the script is enabled, Allow User Scripts is on, and Tampermonkey can run on IMDb. Refresh the actor’s page. <a href="https://www.tampermonkey.net/faq.php#Q209">Permission help ↗</a></p></aside>
+      <aside class="help"><h3>Already installed? Keep your version up to date.</h3><p><strong>Standalone extension:</strong> for this downloadable version, download and extract the latest ZIP into your extension folder, then click its reload button at <code>chrome://extensions</code> and refresh IMDb.</p><p><strong>Userscript:</strong> copy the latest script above, open your existing IMDb Poster Browser script in Tampermonkey, replace its contents, and save with <kbd>Ctrl</kbd> + <kbd>S</kbd>. Keep only one copy enabled, then refresh IMDb.</p><p>Both versions load Rotten Tomatoes ratings as posters come into view and cache them for 24 hours. Sorting by Rotten Tomatoes loads ratings for all matching titles; progress appears above the posters.</p><p>Can’t see the button? For the extension, check that it is enabled and allowed to run on IMDb, then refresh. For the userscript, check that it is enabled, Allow User Scripts is on, and Tampermonkey can run on IMDb. <a href="https://www.tampermonkey.net/faq.php#Q209">Tampermonkey permission help ↗</a></p></aside>
     </main>
-    <footer><p>By <a href="https://voltura.se/">Voltura</a>. Independent of IMDb, Rotten Tomatoes, and Tampermonkey. Film information and poster artwork come from IMDb; critic scores come from Rotten Tomatoes. Changes to either site may affect the script.</p><a href="https://github.com/voltura/voltura-imdb-poster-browser-skin">Source on GitHub ↗</a></footer>
+    <footer><p>By <a href="https://voltura.se/">Voltura</a>. Independent of IMDb, Rotten Tomatoes, and Tampermonkey. Film information and poster artwork come from IMDb; critic scores come from Rotten Tomatoes. Changes to either site may affect both versions.</p><a href="privacy.html">Privacy</a><a href="https://github.com/voltura/voltura-imdb-poster-browser-skin">Source on GitHub ↗</a></footer>
   </div>
   <script>
     document.getElementById('copy').addEventListener('click', async () => {

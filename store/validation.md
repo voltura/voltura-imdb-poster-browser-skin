@@ -1,0 +1,18 @@
+# Validation — extension 1.5.0
+
+Date: 1 November 2026.
+
+- `npm run build`: passed. ZIP includes a root manifest, content script, module service worker and 16/32/48/128px PNG icons. No dependencies or remote executable code are shipped.
+- Repeated build: identical SHA-256, `623670f77f68fa6893e1d3a128325fde81750e07810195bd93c2b27c2b95cbcf`.
+- `npm test`: 13 tests passed for sender and destination restrictions, anonymous requests, HTTP/permission failures, timeout/abort, worker initialization, storage hydration/failure/expiry, and exact shared userscript body in the ZIP.
+- `npm run test:browser`: 11 scenarios passed in a clean Chromium profile with the actual unpacked extension, without Tampermonkey. Covered every sort, search, Movies/All credits, added credits and merged roles, RT 0% and 60% thresholds, missing/ambiguous/year-mismatched RT results, two-request concurrency, missing posters, navigation/swipe, closing/focus/scroll restoration, cache reload/expiry, worker stop/restart, URL restrictions, and duplicate prevention in either installation order. Rotten Tomatoes transport was mocked for deterministic results; these tests do not establish live third-party availability.
+- Original userscript-only behavior: passed with Tampermonkey API stand-ins, including graceful RT request failure. The userscript source file remains unchanged.
+- `npm run test:website`: passed at 1280, 720 and 390px, including both installation methods, no horizontal overflow, installation anchors, copying the original userscript, ZIP download and privacy navigation. Mobile screenshot and icon visually inspected.
+- `npm audit`: installation reported zero vulnerabilities; production-dependency audit also passed.
+- `git diff --check`: passed.
+
+## Live checks and publication
+
+- Separate headless Chromium live check: IMDb returned HTTP 403 for Luc Besson. This is not a functional live-data pass. No fixture screenshots are used as store screenshots.
+- Regular Chrome live verification and genuine extension screenshots: pending installation in the user's browser, which can access IMDb normally.
+- GitHub Pages publication, public privacy/download checks and store submission: pending. See `store/README.md` for the current confirmed store status.
