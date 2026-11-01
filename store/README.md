@@ -3,9 +3,9 @@
 ## Status
 
 - Extension ID: `enkeicnpgjfgaacchhbbdfhiblogekgb`.
-- Review status: draft; version 1.5.1 uploaded, not submitted yet.
+- Review status: **Pending review**; version **1.5.1** submitted on **1 November 2026**. The dashboard confirmed “Your extension was submitted for review.”
 - Product developer: Voltura AB.
-- Intended distribution: free, public, all available regions; publish automatically after approval.
+- Distribution: **free of charge**, **public**, **all regions**. **Publish automatically after review** was checked when submitting.
 - Package: `dist/voltura-imdb-poster-browser-1.5.1.zip` (run `npm run build`).
 - Publisher dashboard: https://chrome.google.com/webstore/devconsole/875eeba0-33ce-400d-b5d0-5b5b68abd0be/enkeicnpgjfgaacchhbbdfhiblogekgb/edit
 
@@ -55,7 +55,7 @@ Single purpose: Display and browse an IMDb person’s filmography as posters wit
 - `https://www.rottentomatoes.com/*`: Retrieve critic-score search results directly from Rotten Tomatoes. The worker constructs a fixed search endpoint from a title, omits credentials, rejects redirects, and accepts messages only from this extension’s top-level IMDb person content script.
 - Remote executable code: No. All JavaScript is in the uploaded package; remote HTML is parsed as data and is never executed.
 
-Disclose **Website content** as handled, including locally processed IMDb credit data and Rotten Tomatoes results. Describe film-title queries sent directly to Rotten Tomatoes and its receipt of ordinary network information. If the dashboard asks separately about browsing activity, disclose processing of the current supported IMDb person page to provide this feature; no history database is read or browsing history retained. Do not claim no data handling merely because Voltura has no backend. No advertising, sale, unrelated use, analytics, or human review of users’ data. Match the final dashboard wording to the published privacy policy and implementation.
+Submitted data disclosure: **Website content**. IMDb credit data and Rotten Tomatoes results are processed locally; film-title queries go directly to Rotten Tomatoes, which receives ordinary network information. **Web history** is unchecked because the extension does not collect a list of visited pages, retain a browsing history, or read the browser history database. No personally identifiable user information, health/payment/authentication data, communications, location data, or activity logging is collected. All three limited-use certifications were checked. The published privacy policy explains this handling; no claim of zero data handling is made merely because Voltura AB has no backend.
 
 ## Reviewer instructions
 
