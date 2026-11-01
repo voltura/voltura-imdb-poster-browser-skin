@@ -15,4 +15,6 @@ Date: 1 November 2026.
 
 - Separate headless Chromium live check: IMDb returned HTTP 403 for Luc Besson. This is not a functional live-data pass. No fixture screenshots are used as store screenshots.
 - Regular Chrome live verification and genuine extension screenshots: pending installation in the user's browser, which can access IMDb normally.
-- GitHub Pages publication, public privacy/download checks and store submission: pending. See `store/README.md` for the current confirmed store status.
+- GitHub Pages: commit `b8092cf` built successfully. Product page, privacy page and versioned ZIP returned HTTP 200. Downloaded ZIP SHA-256 matches the tested package.
+- Real Rotten Tomatoes request through `createRatingHandler` with native Node fetch: passed, returning 111,384 characters of search HTML with media rows for The Fifth Element. This verifies the remote endpoint and worker request code, but not Chrome host-permission enforcement or live IMDb parsing.
+- Store submission: pending. See `store/README.md` for the current confirmed store status.
