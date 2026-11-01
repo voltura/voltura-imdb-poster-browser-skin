@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         IMDb Poster Browser
 // @namespace    voltura.imdb.poster-browser
-// @version      1.4.2
-// @description  Browse an actor's film posters in a grid or swipeable viewer without leaving their page.
+// @version      1.5.0
+// @description  Browse acting, writing, producing and directing credits as posters without leaving an IMDb person's page.
 // @match        https://www.imdb.com/name/nm*
 // @match        https://imdb.com/name/nm*
 // @run-at       document-idle
@@ -53,6 +53,7 @@
       .card img,.placeholder {width:100%;aspect-ratio:2/3;object-fit:contain;background:#202025;border-radius:8px;display:block}
       .card strong {display:block;margin-top:8px;font-size:15px}
       .poster-card {min-width:0;display:flex;flex-direction:column;align-items:stretch}
+      .credits {margin:6px 0 0;color:#bbb;font-size:12px;overflow-wrap:anywhere}
       .ratings {display:flex;align-items:center;flex-wrap:wrap;gap:4px 6px;margin-top:5px;color:#aaa;font-size:12px;font-variant-numeric:tabular-nums}
       .imdb-rating {color:#f5c518;white-space:nowrap}
       .rt-rating {display:inline-flex;align-items:center;gap:4px;color:#eee;background:#242124;border:1px solid #494149;border-radius:4px;font-size:12px;line-height:1.5;padding:1px 5px;text-decoration:none;white-space:nowrap;font-variant-numeric:tabular-nums}
@@ -67,10 +68,13 @@
       .placeholder .placeholder-year {font-size:24px;color:#f5c518}
       .placeholder .placeholder-note {font-size:14px;color:#aaa}
       #viewer {height:100%;display:flex;flex-direction:column}
-      #stage {flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 20px;touch-action:pan-y;user-select:none}
-      #stage img {max-width:calc(100% - 144px);max-height:100%;object-fit:contain;border-radius:6px;-webkit-user-drag:none}
-      #stage button {flex-shrink:0;font-size:32px;width:56px;padding:6px}
-      #missing {max-width:400px;max-height:100%;flex:1;width:auto}
+      #stage {flex:1;min-height:0;display:flex;align-items:center;justify-content:center;touch-action:pan-y;user-select:none}
+      #stage img {max-width:calc(100% - 160px);max-height:100%;object-fit:contain;border-radius:6px;-webkit-user-drag:none}
+      #stage button {flex:1 0 80px;align-self:stretch;min-width:80px;font-size:80px;line-height:1;padding:0;border:0;border-radius:0;background:transparent;color:#ddd;transition:background-color .15s,color .15s}
+      #stage button:enabled:hover {background:#f5c51826;color:#f5c518}
+      #stage button:enabled:active {background:#f5c51840;color:#f5c518}
+      #stage button:focus-visible {outline-offset:-4px;background:#f5c51826;color:#f5c518}
+      #missing {max-width:400px;max-height:100%;flex:0 1 400px;min-width:0;width:auto}
       #details {text-align:center;padding:10px 20px 18px}
       #title {font-size:22px;margin:0 0 5px}
       #meta {color:#c3c3cb;margin:0 0 4px}
@@ -83,9 +87,8 @@
         header {padding:10px 12px} h2 {font-size:17px}
         .tools {padding:10px 12px;gap:8px}
         #grid {grid-template-columns:repeat(2,minmax(0,1fr));padding:8px 12px;gap:16px}
-        #stage {padding:5px;gap:5px}
-        #stage button {width:42px;font-size:26px;padding:0}
-        #stage img {max-width:calc(100% - 94px)}
+        #stage button {flex-basis:56px;min-width:56px;font-size:60px}
+        #stage img {max-width:calc(100% - 112px)}
         #title {font-size:18px}
         #launch {bottom:16px;right:12px}
       }
@@ -96,7 +99,7 @@
         <header><h2 id="heading"><span id="actor"></span> · Posters</h2><button id="view" type="button">Poster grid</button><button id="close" type="button" aria-label="Close poster browser">×</button></header>
         <div class="tools">
           <input id="search" type="search" placeholder="Find a film…" aria-label="Find a film">
-          <select id="type" aria-label="Title types"><option value="movie">Movies</option><option value="all">All acting credits</option></select>
+          <select id="type" aria-label="Title types"><option value="movie">Movies</option><option value="all">All credits</option></select>
           <select id="sort" aria-label="Sort posters"><option value="rating">IMDb rating ↓</option><option value="rt">Rotten Tomatoes rating ↓</option><option value="new">Newest first</option><option value="old">Oldest first</option><option value="title">Title A–Z</option></select>
         </div>
         <div id="message" role="status" aria-live="polite"></div>
@@ -112,7 +115,18 @@
   document.body.append(host);
   const $ = id => root.getElementById(id);
   const dialog = root.querySelector('dialog');
-  let items = [], filtered = [], index = 0, gridMode = true, actorGroups = [];
+  let items = [], filtered = [], index = 0, gridMode = true;
+  const creditLabels = {actor:'Actor',actress:'Actress',writer:'Writer',producer:'Producer',director:'Director'};
+  const creditCategory = value => String(value || '').toLowerCase().match(/^(actor|actress|writer|producer|director)$/)?.[1];
+  const creditRows = () => [...document.querySelectorAll('li[data-testid^="cred_"],li[data-testid^="unrel_cred_"]')]
+    .filter(row => /^(?:unrel_)?cred_(actor|actress|writer|producer|director)_/.test(row.getAttribute('data-testid') || ''));
+  const creditText = t => Object.entries(t.credits || {}).map(([category,roles]) => creditLabels[category] + (roles.length ? ': ' + roles.join(', ') : '')).join(' · ');
+  function mergeCredit(found,title,category,roles=[]) {
+    const old = found.get(title.id);
+    const credits = {...old?.credits};
+    credits[category] = [...new Set([...(credits[category] || []),...roles.filter(Boolean)])];
+    found.set(title.id,{...old,...title,credits,upcoming:old ? old.upcoming && title.upcoming : title.upcoming});
+  }
   let returnFocus = null, savedOverflow = '', loading = false, refreshTimer, loadNotice = '';
   const rtResults = new Map(), rtQueue = new Map(), rtPending = new Set();
   let rtActive = 0, rtResortTimer;
@@ -222,32 +236,30 @@
   };
   function collect() {
     const found = new Map();
-    actorGroups = [];
     try {
       const data = JSON.parse(document.getElementById('__NEXT_DATA__')?.textContent || '{}').props?.pageProps;
       $('actor').textContent = data?.aboveTheFold?.nameText?.text || document.querySelector('h1')?.textContent || 'Filmography';
       for (const state of ['released','unreleased']) {
         for (const edge of data?.mainColumnData?.[state]?.edges || []) {
           const group = edge.node;
-          if (!/^(actor|actress)$/i.test(group.grouping?.text || '')) continue;
-          actorGroups.push(group.grouping.groupingId);
+          const category = creditCategory(group.grouping?.groupingId) || creditCategory(group.grouping?.text);
+          if (!category) continue;
           for (const credit of group.credits?.edges || []) {
             const node = credit.node, t = node.title;
             if (!t?.id) continue;
-            found.set(t.id, {
+            mergeCredit(found, {
               id:t.id, title:t.titleText?.text || t.originalTitleText?.text || t.id,
               year:t.releaseYear?.year || '', type:t.titleType?.id || 'movie',
               typeText:t.titleType?.text || '', rating:t.ratingsSummary?.aggregateRating || '',
-              role:(node.creditedRoles?.edges || []).map(r=>r.node.text).filter(Boolean).join(', '),
               image:imageUrl(t.primaryImage?.url), upcoming:state==='unreleased'
-            });
+            },category,(node.creditedRoles?.edges || []).map(r=>r.node.text));
           }
         }
       }
     } catch { $('actor').textContent = document.querySelector('h1')?.textContent || 'Filmography'; }
-    for (const row of document.querySelectorAll('li[data-testid^="cred_"],li[data-testid^="unrel_cred_"]')) {
+    for (const row of creditRows()) {
       const test = row.getAttribute('data-testid') || '';
-      if (actorGroups.length && !actorGroups.some(g=>test.includes(g))) continue;
+      const category = test.match(/^(?:unrel_)?cred_(actor|actress|writer|producer|director)_/)[1];
       const a = row.querySelector('a.ipc-metadata-list-summary-item__t') || row.querySelector('a[href*="/title/tt"]');
       const id = a?.getAttribute('href')?.match(/\/title\/(tt\d+)/)?.[1];
       if (!id) continue;
@@ -255,15 +267,14 @@
       const badge = a.nextElementSibling?.textContent || '';
       const type = /TV (Series|Mini Series)/i.test(badge) ? 'tvSeries' : /TV Movie/i.test(badge) ? 'tvMovie' : /TV Special/i.test(badge) ? 'tvSpecial' : /Music Video/i.test(badge) ? 'musicVideo' : /Video Game/i.test(badge) ? 'videoGame' : /Short/i.test(badge) ? 'short' : /Video/i.test(badge) ? 'video' : 'movie';
       const img = row.querySelector('img');
-      found.set(id, {
+      mergeCredit(found, {
         ...old, id, title:a.textContent.trim() || a.getAttribute('aria-label') || old?.title || id,
         year:old?.year || row.querySelector('.ipc-metadata-list-summary-item__li')?.textContent.match(/(?:18|19|20|21)\d{2}/)?.[0] || '',
         type:old?.type || type, typeText:old?.typeText || (type==='movie'?'Movie':badge.replace(/[\d.★]/g,'').trim()),
         rating:old?.rating || row.querySelector('.ipc-rating-star--rating')?.textContent || '',
-        role:old?.role || row.querySelector('[data-testid="credit-roles-list"]')?.textContent || '',
         image:old?.image || imageUrl(img?.getAttribute('src')),
         upcoming:old?.upcoming ?? test.startsWith('unrel_')
-      });
+      },category,found.get(id)?.credits?.[category]?.length ? [] : [row.querySelector('[data-testid="credit-roles-list"]')?.textContent?.trim()]);
     }
     items = [...found.values()];
   }
@@ -293,7 +304,7 @@
     $('viewer').hidden = gridMode || !filtered.length;
     $('view').textContent = gridMode ? 'Single poster' : 'Poster grid';
     $('view').setAttribute('aria-pressed',String(gridMode));
-    $('message').textContent = filtered.length + ' titles · ' + items.length + ' acting credits loaded' + (loading ? ' · Loading more credits automatically…' : loadNotice) + (filtered.length ? ' · ' : ' · No matching titles.');
+    $('message').textContent = filtered.length + ' titles · ' + items.length + ' titles loaded (acting, writing, producing, directing)' + (loading ? ' · Loading more credits automatically…' : loadNotice) + (filtered.length ? ' · ' : ' · No matching titles.');
     if ($('sort').value === 'rt') {
       const checked = filtered.filter(t=>ratingResult(t)).length;
       if (checked < filtered.length) $('message').append('Loading RT ratings ' + checked + '/' + filtered.length + ' · ');
@@ -320,7 +331,8 @@
         if(t.rating) {const imdb=document.createElement('span');imdb.className='imdb-rating';imdb.textContent='★ '+t.rating;imdb.title='IMDb rating: '+t.rating+' / 10';meta.append(imdb);}
         b.addEventListener('click',()=>{index=i;gridMode=false;render();$('content').scrollTop=0;($('prev').disabled?$('close'):$('prev')).focus();});
         const rt = document.createElement('a');rt.className='rt-rating';rt.target='_blank';rt.rel='noopener noreferrer';
-        meta.append(rt);card.append(b,meta);fragment.append(card);bindRating(rt,t);
+        const credits=document.createElement('p');credits.className='credits';credits.textContent=creditText(t);
+        meta.append(rt);card.append(b,meta,credits);fragment.append(card);bindRating(rt,t);
       });
       $('grid').replaceChildren(fragment);
       if (focusedId) {
@@ -333,7 +345,7 @@
       fillPlaceholder($('missing'),t);
       $('title').textContent=t.title;
       $('meta').textContent=[t.year,t.typeText,t.rating?'★ '+t.rating:'',t.upcoming?'Upcoming':''].filter(Boolean).join(' · ');
-      $('role').textContent=t.role;
+      $('role').textContent=creditText(t);
       bindRating($('rt'),t);
       $('open').href='https://www.imdb.com/title/'+t.id+'/';
       $('counter').textContent=(index+1)+' / '+filtered.length;
@@ -359,8 +371,11 @@
     loadNotice='';loadCredits();
   }
   function getLoadButton() {
-    for(const row of document.querySelectorAll('li[data-testid^="cred_"]')) {
-      if(actorGroups.length&&!actorGroups.some(g=>row.getAttribute('data-testid').includes(g)))continue;
+    // Open each supported department, including those collapsed on writer/director pages.
+    for (const button of document.querySelectorAll('button[aria-expanded="false"]')) {
+      if (/^(Actor|Actress|Writer|Producer|Director)\b/i.test(button.textContent.trim())) return button;
+    }
+    for(const row of creditRows()) {
       const section=row.closest('.ipc-accordion__item__content_inner');
       const button=[...(section?.querySelectorAll('button')||[])].find(b=>/^(See all|Load more)$/i.test(b.textContent.trim()));
       if(button)return button;
@@ -397,14 +412,14 @@
     try {
       while(dialog.open) {
         const button=getLoadButton();if(!button)break;
-        const before=items.length;button.click();
+        const before=creditRows().length;button.click();
         for(let n=0;n<30&&dialog.open;n++) {
           await new Promise(r=>setTimeout(r,300));collect();
-          if(items.length>before)break;
+          if(creditRows().length>before || !button.isConnected || button.getAttribute('aria-expanded')==='true')break;
         }
         if(!dialog.open)break;
         const keep=filtered[index]?.id;applyFilters(keep);
-        if(items.length<=before) {loadNotice=' · IMDb did not return more credits. Reopen the browser to retry.';break;}
+        if(creditRows().length<=before && getLoadButton()===button) {loadNotice=' · IMDb did not return more credits. Reopen the browser to retry.';break;}
       }
     } catch {loadNotice=' · Could not load more credits. Reopen the browser to retry.';}
     finally {loading=false;const keep=filtered[index]?.id;collect();applyFilters(keep);}
