@@ -1,9 +1,10 @@
-# Chrome Web Store submission — 1.5.1
+# Chrome Web Store publication — 1.5.1
 
 ## Status
 
 - Extension ID: `enkeicnpgjfgaacchhbbdfhiblogekgb`.
-- Review status: **Pending review**; version **1.5.1** submitted on **1 November 2026**. The dashboard confirmed “Your extension was submitted for review.”
+- Review status: **Approved and published**, confirmed by the owner on **2 November 2026**; version **1.5.1**.
+- Public listing: https://chromewebstore.google.com/detail/voltura-imdb-poster-brows/enkeicnpgjfgaacchhbbdfhiblogekgb
 - Resubmitted on **1 November 2026 at approximately 21:51 CET** with the global promo video and both promo tiles, after the owner requested cancellation of the earlier review. Google confirmed the new submission; automatic publication after approval remained checked.
 - Product developer: Voltura AB.
 - Distribution: **free of charge**, **public**, **all regions**. **Publish automatically after review** was checked when submitting.

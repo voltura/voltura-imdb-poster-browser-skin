@@ -8,13 +8,21 @@ Two free installation methods offer the same features: a standalone Chrome exten
 
 ## Standalone Chrome extension
 
-Version **1.5.1 has been submitted to the Chrome Web Store and is pending Google's review**. It will be free and publish automatically after approval. Until the store listing is available, use the downloadable standalone extension:
+Version **1.5.1 is now available on the [Chrome Web Store](https://chromewebstore.google.com/detail/voltura-imdb-poster-brows/enkeicnpgjfgaacchhbbdfhiblogekgb)**, free of charge.
+
+1. Open the store listing and click **Add to Chrome**.
+2. Confirm with **Add extension**.
+3. Open or refresh an IMDb person page and click **Browse posters**.
+
+Chrome updates store installations automatically. If you previously installed the ZIP, remove or disable the unpacked copy at `chrome://extensions` before switching to the store version, then refresh IMDb. Removing the old copy also removes its cached ratings.
+
+### Manual installation (alternative)
 
 1. Download [version 1.5.1](https://imdb.voltura.se/downloads/voltura-imdb-poster-browser-1.5.1.zip) and extract the ZIP into a folder you will keep.
 2. Open `chrome://extensions`, enable **Developer mode**, select **Load unpacked**, and choose the extracted folder containing `manifest.json`.
 3. Open or refresh an IMDb person page and click **Browse posters**.
 
-To update this unpacked installation, extract the latest ZIP into the same folder, reload the extension at `chrome://extensions`, and refresh IMDb. Once the store version is published, Chrome will manage updates for installations from the store.
+To update this unpacked installation, extract the latest ZIP into the same folder, reload the extension at `chrome://extensions`, and refresh IMDb.
 
 Only IMDb person-page access, Rotten Tomatoes access, and local storage are used. See the [privacy policy](https://imdb.voltura.se/privacy.html).
 
