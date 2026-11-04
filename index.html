@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Browse IMDb filmographies as posters with IMDb and Rotten Tomatoes scores. Choose the free standalone Chrome extension or the Tampermonkey userscript.">
+  <meta name="description" content="Explore an actor’s or director’s IMDb filmography as a poster grid. Find your next film with IMDb and Rotten Tomatoes ratings. Free Chrome extension.">
   <meta name="theme-color" content="#111113">
   <link rel="canonical" href="https://imdb.voltura.se/">
-  <title>IMDb Poster Browser — Voltura</title>
+  <title>IMDb Poster Browser — Free Chrome Extension | Voltura</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" sizes="180x180">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Voltura">
-  <meta property="og:title" content="IMDb Poster Browser — Voltura">
-  <meta property="og:description" content="Turn an IMDb filmography into a wall of posters. Compare IMDb and Rotten Tomatoes scores. Free standalone Chrome extension and Tampermonkey userscript.">
+  <meta property="og:title" content="Find your next film with IMDb Poster Browser">
+  <meta property="og:description" content="Explore an actor’s or director’s films as a wall of posters. Compare IMDb and Rotten Tomatoes ratings. Free on the Chrome Web Store.">
   <meta property="og:url" content="https://imdb.voltura.se/">
   <meta property="og:image" content="https://imdb.voltura.se/assets/social-card.jpg?v=1.4.2">
   <meta property="og:image:width" content="1200">
@@ -21,10 +21,26 @@
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:alt" content="IMDb Poster Browser by Voltura, with an actor’s film posters, IMDb scores, and Rotten Tomatoes critic ratings.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="IMDb Poster Browser — Voltura">
-  <meta name="twitter:description" content="Browse IMDb filmographies as posters with IMDb and Rotten Tomatoes scores. Choose the free Chrome extension or Tampermonkey userscript.">
+  <meta name="twitter:title" content="Find your next film with IMDb Poster Browser">
+  <meta name="twitter:description" content="Explore an actor’s or director’s films as a wall of posters. Compare IMDb and Rotten Tomatoes ratings. Free on the Chrome Web Store.">
   <meta name="twitter:image" content="https://imdb.voltura.se/assets/social-card.jpg?v=1.4.2">
   <meta name="twitter:image:alt" content="IMDb Poster Browser by Voltura, with an actor’s film posters, IMDb scores, and Rotten Tomatoes critic ratings.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Voltura IMDb Poster Browser",
+    "url": "https://imdb.voltura.se/",
+    "description": "Browse IMDb acting, writing, producing, and directing filmographies as posters with IMDb and Rotten Tomatoes ratings.",
+    "applicationCategory": "EntertainmentApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "softwareRequirements": "Google Chrome on a computer",
+    "installUrl": "https://chromewebstore.google.com/detail/voltura-imdb-poster-brows/enkeicnpgjfgaacchhbbdfhiblogekgb",
+    "screenshot": "https://imdb.voltura.se/store/screenshots/luc-besson-grid.jpg",
+    "author": {"@type": "Organization", "name": "Voltura AB", "url": "https://voltura.se/"},
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+  }
+  </script>
   <style>
     :root{color-scheme:dark;--bg:#111113;--panel:#1c1c20;--muted:#aaaab3;--yellow:#f5c518;--line:#343438;font:17px/1.65 system-ui,sans-serif;color:#f7f6f1;background:var(--bg)}
     *{box-sizing:border-box}html{scroll-behavior:smooth;scrollbar-color:#696970 var(--bg)}body{margin:0}a{color:inherit;text-underline-offset:5px}button{font:inherit;cursor:pointer}a:focus-visible,button:focus-visible{outline:3px solid var(--yellow);outline-offset:5px}img{max-width:100%;height:auto;display:block}::selection{background:var(--yellow);color:#111}
@@ -34,6 +50,7 @@
     .install{padding:76px 0;display:grid;grid-template-columns:.85fr 1.15fr;gap:80px}.install-intro p{color:var(--muted);font-size:16px;max-width:340px}.steps{list-style:none;padding:0;margin:0;counter-reset:steps}.steps li{counter-increment:steps;position:relative;padding:0 0 27px 50px}.steps li:before{content:counter(steps);position:absolute;left:0;top:0;width:30px;height:30px;display:grid;place-items:center;border:1px solid #555;border-radius:50%;font-size:14px;color:var(--yellow)}.steps p{font-size:15px;color:var(--muted);margin:7px 0 0}.steps h3{margin:0}.steps button{margin-top:16px}code,kbd{font:13px ui-monospace,monospace;background:#29292e;border:1px solid #44444d;padding:2px 6px;border-radius:4px;overflow-wrap:anywhere}#copy-status{display:block;font-size:13px;color:var(--yellow);min-height:24px;margin-top:6px}.help{border-top:1px solid var(--line);padding:25px 0 50px;font-size:14px;color:var(--muted)}footer{border-top:1px solid var(--line);padding:28px 0 38px;display:flex;justify-content:space-between;gap:24px;font-size:12px;color:var(--muted)}footer p{margin:0;max-width:690px}
     @media(max-width:720px){.wrap{width:calc(100% - 32px)}nav{height:72px}nav .links{gap:16px}.hero{padding:52px 0 30px}.intro{font-size:18px}.features{grid-template-columns:1fr;gap:28px;padding:35px 0 42px}.install{grid-template-columns:1fr;gap:28px;padding:44px 0}.install-intro p{max-width:none}.preview figcaption span:last-child{display:none}footer{flex-direction:column;gap:12px}h1{font-size:clamp(42px,10vw,70px)}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+    .discover{padding:60px 0;border-bottom:1px solid var(--line)}.discover>p{max-width:720px;color:var(--muted)}.discover video{width:100%;max-width:960px;display:block;border:1px solid var(--line);border-radius:12px;margin-top:28px;background:#111;aspect-ratio:16/9}.examples{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:32px}.examples p{color:var(--muted);font-size:15px}.faq{padding:48px 0;border-top:1px solid var(--line)}.faq details{border-bottom:1px solid var(--line);padding:18px 0}.faq summary{font-weight:650;cursor:pointer}.faq details p{color:var(--muted);max-width:850px;font-size:15px}.final-action{padding:36px 0 48px}.final-action p{color:var(--muted)}@media(max-width:720px){.discover{padding:38px 0}.examples{grid-template-columns:1fr;gap:16px}.faq{padding:32px 0}}
   </style>
 </head>
 <body>
@@ -41,26 +58,50 @@
     <nav aria-label="Main navigation"><a class="brand" href="https://voltura.se/">voltura<span>.</span></a><div class="links"><a href="#install">Installation</a><a href="https://github.com/voltura/voltura-imdb-poster-browser-skin">GitHub ↗</a></div></nav>
     <main>
       <section class="hero" aria-labelledby="hero-title">
-        <p class="eyebrow">IMDb Poster Browser · For IMDb person pages</p>
+        <p class="eyebrow">IMDb Poster Browser · Free Chrome extension</p>
         <h1 id="hero-title">A filmography.<br>A wall of <span>possibilities.</span></h1>
-        <p class="intro">Turn a <strong>person’s IMDb page</strong> into a wall of movie posters. Compare IMDb and Rotten Tomatoes ratings, then explore their films in a grid or one poster at a time.</p>
-        <div class="actions"><a class="button" href="https://chromewebstore.google.com/detail/voltura-imdb-poster-brows/enkeicnpgjfgaacchhbbdfhiblogekgb">Add to Chrome <span aria-hidden="true">↗</span></a><a href="#userscript-install">Install the userscript ↗</a></div>
-        <p class="subtle">Available on the Chrome Web Store · Free · Version 1.5.1</p>
+        <p class="intro">Find your next film through an actor or director you love. Turn their <strong>IMDb filmography into a poster grid</strong>, with IMDb and Rotten Tomatoes ratings to help you choose.</p>
+        <div class="actions"><a class="button" href="https://chromewebstore.google.com/detail/voltura-imdb-poster-brows/enkeicnpgjfgaacchhbbdfhiblogekgb?utm_source=imdb.voltura.se&amp;utm_medium=referral&amp;utm_campaign=website">Add to Chrome <span aria-hidden="true">↗</span></a><a href="#demo">Watch the 30-second demo ↓</a></div>
+        <p class="subtle">Free · No account or subscription · Chrome on a computer · <a href="#userscript-install">Userscript also available</a></p>
       </section>
-      <figure class="preview"><img src="assets/poster-browser.png?v=1.4.2" alt="Alexander Skarsgård’s film posters sorted by Rotten Tomatoes rating, with compact IMDb scores and red Fresh tomato icons." width="3410" height="1812" fetchpriority="high"><figcaption><span>Alexander Skarsgård’s films, sorted by Rotten Tomatoes rating.</span><span>IMDb and critic scores, side by side.</span></figcaption></figure>
+      <figure class="preview"><picture><source type="image/webp" srcset="assets/poster-browser-640.webp 640w, assets/poster-browser-1280.webp 1280w, assets/poster-browser-1920.webp 1920w" sizes="(max-width: 720px) calc(100vw - 32px), (max-width: 1228px) calc(100vw - 48px), 1180px"><img src="assets/poster-browser.png?v=1.4.2" alt="Alexander Skarsgård’s film posters sorted by Rotten Tomatoes rating, with compact IMDb scores and red Fresh tomato icons." width="3410" height="1812" fetchpriority="high"></picture><figcaption><span>Alexander Skarsgård’s films, sorted by Rotten Tomatoes rating.</span><span>IMDb and critic scores, side by side.</span></figcaption></figure>
       <section class="features" aria-label="Features">
         <article><span class="number">01 / EXPLORE</span><h3>The bigger picture</h3><p>See films together in a poster grid, or browse one at a time with arrow keys and swipes. Open any title on IMDb for more.</p></article>
         <article><span class="number">02 / FIND</span><h3>Your next watch</h3><p>Highest IMDb rating comes first by default. Sort by Rotten Tomatoes rating, year, or title, and search or filter acting, writing, producing, and directing credits. Each poster shows their roles, and remaining credits load automatically.</p></article>
         <article><span class="number">03 / COMPARE</span><h3>Two scores. One glance.</h3><p>Compact Rotten Tomatoes links sit beside IMDb scores. A red tomato means Fresh (60% or higher); a green splat means Rotten (below 60%). Missing scores stay hidden. Select a critic score to open Rotten Tomatoes.</p></article>
       </section>
+      <section class="discover" id="demo" aria-labelledby="demo-title">
+        <p class="eyebrow">See it in action</p><h2 id="demo-title">From “who’s in this?”<br>to “what’s next?”</h2>
+        <p>Stay on IMDb and explore a person’s acting, writing, producing, and directing credits. This silent 30-second demo shows the poster grid and single-poster view, with captions throughout.</p>
+        <video controls playsinline preload="none" poster="store/promo/video-thumbnail.jpg" aria-label="IMDb Poster Browser demo with on-screen captions">
+          <source src="store/promo/voltura-imdb-poster-browser-promo.mp4" type="video/mp4">
+          <a href="store/promo/voltura-imdb-poster-browser-promo.mp4">Download the captioned demo video</a>.
+        </video>
+        <p class="subtle"><a href="https://www.youtube.com/watch?v=2qSl6gYvuIM">Watch on YouTube ↗</a></p>
+        <div class="examples">
+          <article><h3>Find an actor’s best-rated films</h3><p>Open their IMDb page, click <strong>Browse posters</strong>, and start with the highest IMDb ratings. Choose <strong>Movies</strong> to focus on films.</p></article>
+          <article><h3>Explore a director’s filmography</h3><p>See directing credits alongside acting, writing, and producing work. Titles shared by several credit categories appear once, with their roles shown.</p></article>
+          <article><h3>Compare audience and critic scores</h3><p>See IMDb ratings beside available Rotten Tomatoes critic scores. Sort by either rating to explore a different order.</p></article>
+        </div>
+      </section>
       <section class="install" id="install" aria-labelledby="install-title">
-        <div class="install-intro"><p class="eyebrow">Standalone Chrome extension</p><h2 id="install-title">One extension.<br>All the posters.</h2><p>The same poster browser, with no Tampermonkey or user-script permission needed. Browse acting, writing, producing, and directing credits with both IMDb and Rotten Tomatoes scores.</p><a class="button" href="https://chromewebstore.google.com/detail/voltura-imdb-poster-brows/enkeicnpgjfgaacchhbbdfhiblogekgb">Add to Chrome ↗</a><p class="subtle">Version 1.5.1 · Free · <a href="privacy.html">Privacy policy</a></p></div>
+        <div class="install-intro"><p class="eyebrow">Standalone Chrome extension</p><h2 id="install-title">One extension.<br>All the posters.</h2><p>The same poster browser, with no Tampermonkey or user-script permission needed. Browse acting, writing, producing, and directing credits with both IMDb and Rotten Tomatoes scores.</p><a class="button" href="https://chromewebstore.google.com/detail/voltura-imdb-poster-brows/enkeicnpgjfgaacchhbbdfhiblogekgb?utm_source=imdb.voltura.se&amp;utm_medium=referral&amp;utm_campaign=website">Add to Chrome ↗</a><p class="subtle">Version 1.5.1 · Free · <a href="privacy.html">Privacy policy</a></p></div>
         <div><h3>Install from the Chrome Web Store</h3><p class="subtle">Now available on the Chrome Web Store, with automatic updates through Chrome.</p><ol class="steps">
           <li><h3>Open the store listing</h3><p>Click <strong>Add to Chrome</strong> above to open Voltura IMDb Poster Browser on the Chrome Web Store.</p></li>
           <li><h3>Add the extension</h3><p>On the store page, click <strong>Add to Chrome</strong>, then confirm with <strong>Add extension</strong>.</p></li>
           <li><h3>Browse IMDb</h3><p>Open or refresh a person’s IMDb page and click <strong>Browse posters</strong>. No Tampermonkey installation is required.</p></li>
         </ol><p class="subtle">Already using the userscript? You can switch to the extension. Cached ratings are separate, and installing both shows only one poster browser. To choose which version runs, disable the other and refresh IMDb.</p></div>
       </section>
+      <section class="faq" aria-labelledby="faq-title">
+        <h2 id="faq-title">Before you browse</h2>
+        <details><summary>What does IMDb Poster Browser do?</summary><p>It adds a <strong>Browse posters</strong> button to IMDb person pages. Open it to explore acting, writing, producing, and directing credits in a poster grid or one poster at a time. Search titles and sort by rating, release year, or title.</p></details>
+        <details><summary>Is the Chrome extension free?</summary><p>Yes. Voltura IMDb Poster Browser is free, with no account, subscription, or API key required. Install it from the <a href="https://chromewebstore.google.com/detail/voltura-imdb-poster-brows/enkeicnpgjfgaacchhbbdfhiblogekgb?utm_source=imdb.voltura.se&amp;utm_medium=referral&amp;utm_campaign=website">Chrome Web Store</a>.</p></details>
+        <details><summary>Does it work on a phone?</summary><p>The Chrome extension is for Chrome on a computer. Chrome on Android and iPhone does not support installing this extension.</p></details>
+        <details><summary>Why are some Rotten Tomatoes scores missing?</summary><p>Scores appear when a Rotten Tomatoes result matches the film’s title and release year. Ratings load as posters come into view; sorting by Rotten Tomatoes loads ratings for all matching titles. Unavailable scores stay hidden, and site changes may affect matching.</p></details>
+        <details><summary>Do I need Tampermonkey?</summary><p>No. The standalone Chrome extension works on its own and updates automatically through Chrome. The <a href="#userscript-install">Tampermonkey userscript</a> remains available as an alternative with the same features.</p></details>
+        <details><summary>What data does it use?</summary><p>The extension processes IMDb filmography content and stores rating matches locally. Film-title queries go directly to Rotten Tomatoes to retrieve critic scores. Read the <a href="privacy.html">privacy policy</a> for details.</p></details>
+      </section>
+      <div class="final-action"><h3>Have someone’s films in mind?</h3><p>Add the extension, open their IMDb page, and click <strong>Browse posters</strong>.</p><a class="button" href="https://chromewebstore.google.com/detail/voltura-imdb-poster-brows/enkeicnpgjfgaacchhbbdfhiblogekgb?utm_source=imdb.voltura.se&amp;utm_medium=referral&amp;utm_campaign=website">Get IMDb Poster Browser ↗</a></div>
       <section class="install" id="userscript-install" aria-labelledby="userscript-title">
         <div class="install-intro"><p class="eyebrow">Tampermonkey userscript</p><h2 id="userscript-title">Your browser.<br>A better view.</h2><p>Prefer the original method? Install Tampermonkey once, then add the script. You’ll find the same <strong>Browse posters</strong> button on IMDb person pages.</p><a class="subtle" href="https://github.com/voltura/voltura-imdb-poster-browser-skin#readme">Read the full guide ↗</a></div>
         <ol class="steps">

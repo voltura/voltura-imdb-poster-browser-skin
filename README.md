@@ -66,3 +66,13 @@ Requires Node.js 24 or later. Run `npm ci`, `npm run build`, `npm test`, then `n
 The root userscript is the shared feature source and is not rewritten by the build. `extension/adapter.js` wraps its unchanged body with Chrome storage and messaging adapters. `extension/worker.js` performs anonymous, restricted Rotten Tomatoes requests. All executable code ships inside the package.
 
 The build generates `dist/extension/` for unpacked testing, a versioned ZIP and SHA-256 digest in `dist/`, and a downloadable ZIP in `downloads/`. The ZIP is deterministic for the same inputs and dependencies. Keep the userscript, package, and manifest versions in sync. Store publication materials and status are in [store/README.md](store/README.md).
+
+## Website discovery and maintenance
+
+The product website publishes automatically from `main` through GitHub Pages, independently of Chrome Web Store review. Website-only changes do not require uploading or resubmitting the extension.
+
+The page includes a locally hosted captioned demo, responsive WebP previews, software metadata, and a sitemap advertised in `robots.txt`. Run `npm run build:site-media` after replacing the original preview PNG. Store links use `utm_source=imdb.voltura.se`, `utm_medium=referral`, and `utm_campaign=website` for campaign attribution in the store dashboard; no website analytics script is added.
+
+The **Website checks** GitHub workflow runs browser checks for website changes and every Monday at 07:00 UTC. Its weekly and manual runs also check the published page, sitemap, privacy page, and media URLs. Run `npm run check:public-site` for an immediate live check. These checks measure availability and page correctness, not traffic, search rankings, or user growth.
+
+Keep `google73b3a93076426b87.html` in the published root: it is the ownership verification file supplied by Google Search Console for the product website.
