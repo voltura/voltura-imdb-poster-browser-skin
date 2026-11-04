@@ -1,11 +1,11 @@
 name: Website checks
 
-on:
+'on':
   push:
     branches: [main]
-    paths: ['index.html', 'privacy.html', 'assets/**', 'store/promo/**', 'robots.txt', 'sitemap.xml', 'tests/website.mjs', 'scripts/check-public-site.mjs', 'package*.json', '.github/workflows/website.yml']
+    paths: ['index.html', 'privacy.html', 'assets/**', 'store/promo/**', 'downloads/**', 'google*.html', 'robots.txt', 'sitemap.xml', 'tests/website.mjs', 'scripts/*site*.mjs', 'package*.json', '.github/workflows/website.yml']
   pull_request:
-    paths: ['index.html', 'privacy.html', 'assets/**', 'store/promo/**', 'robots.txt', 'sitemap.xml', 'tests/website.mjs', 'scripts/check-public-site.mjs', 'package*.json', '.github/workflows/website.yml']
+    paths: ['index.html', 'privacy.html', 'assets/**', 'store/promo/**', 'downloads/**', 'google*.html', 'robots.txt', 'sitemap.xml', 'tests/website.mjs', 'scripts/*site*.mjs', 'package*.json', '.github/workflows/website.yml']
   schedule:
     - cron: '0 7 * * 1'
   workflow_dispatch:
