@@ -76,3 +76,5 @@ The page includes a locally hosted captioned demo, responsive WebP previews, sof
 The **Website checks** GitHub workflow runs browser checks for website changes and every Monday at 07:00 UTC. Its weekly and manual runs also check the published page, sitemap, privacy page, and media URLs. Run `npm run check:public-site` for an immediate live check. These checks measure availability and page correctness, not traffic, search rankings, or user growth.
 
 Keep `google73b3a93076426b87.html` in the published root: it is the ownership verification file supplied by Google Search Console for the product website.
+
+Search Console ownership was verified on 4 November 2026. Google accepted `https://imdb.voltura.se/sitemap.xml` with **Success** and two discovered pages. Search performance data was still processing at setup; sitemap acceptance does not confirm indexing or a ranking change.
