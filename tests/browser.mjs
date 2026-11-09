@@ -119,6 +119,7 @@ try {
   await check('Escape restores scrolling and focus; grid arrow scroll', async () => {
     await page.keyboard.press('Escape');
     await wait(async () => !(await host.locator('dialog').evaluate(el => el.open)), 'dialog close');
+    await wait(async () => (await page.evaluate(() => document.documentElement.style.overflow)) === '', 'scroll restoration');
     assert.equal(await host.locator('dialog').evaluate(el => el.open),false);
     assert.equal(await page.evaluate(() => document.documentElement.style.overflow),'');
     assert.equal(await host.evaluate(el => el.shadowRoot.activeElement?.id),'launch');

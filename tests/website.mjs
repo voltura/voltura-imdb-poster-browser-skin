@@ -36,7 +36,7 @@ try {
   assert.match(await page.locator('#copy-status').textContent(),/Copied!/);
   const clipboard = await page.evaluate(() => navigator.clipboard.readText());
   assert.equal(clipboard.replace(/\r\n/g,'\n'),(await readFile(path.join(root,'imdb-poster-browser.user.js'),'utf8')).replace(/\r\n/g,'\n'));
-  const archive = await fetch(base+'/downloads/voltura-imdb-poster-browser-1.5.1.zip');
+  const archive = await fetch(base+'/downloads/voltura-imdb-poster-browser-1.5.2.zip');
   assert.equal(archive.status,200);
   assert.ok(unzipSync(new Uint8Array(await archive.arrayBuffer()))['manifest.json']);
   await page.getByRole('link',{name:'Privacy',exact:true}).click();

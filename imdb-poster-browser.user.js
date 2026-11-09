@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IMDb Poster Browser
 // @namespace    voltura.imdb.poster-browser
-// @version      1.5.1
+// @version      1.5.2
 // @description  Browse acting, writing, producing and directing credits as posters without leaving an IMDb person's page.
 // @match        https://www.imdb.com/name/nm*
 // @match        https://imdb.com/name/nm*
