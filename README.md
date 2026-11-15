@@ -2,7 +2,7 @@
 
 Browse a person's IMDb acting, writing, producing, and directing filmography as a poster grid or one poster at a time, without leaving their page.
 
-Visit the [product page](https://imdb.voltura.se/) for a preview and installation steps.
+**[Add to Chrome for free](https://chromewebstore.google.com/detail/voltura-imdb-poster-brows/enkeicnpgjfgaacchhbbdfhiblogekgb?utm_source=github&utm_medium=referral&utm_campaign=poster_browser_launch&utm_content=readme)** · [Watch the demo](https://imdb.voltura.se/#demo)
 
 Two free installation methods offer the same features: a standalone Chrome extension and the original Tampermonkey userscript.
 
@@ -15,6 +15,8 @@ Version **1.5.1 is now available on the [Chrome Web Store](https://chromewebstor
 3. Open or refresh an IMDb person page and click **Browse posters**.
 
 Chrome updates store installations automatically. If you previously installed the ZIP, remove or disable the unpacked copy at `chrome://extensions` before switching to the store version, then refresh IMDb. Removing the old copy also removes its cached ratings.
+
+If you’ve used the poster browser, [leave an honest review in the Chrome Web Store](https://chromewebstore.google.com/detail/voltura-imdb-poster-brows/enkeicnpgjfgaacchhbbdfhiblogekgb/reviews). If you run into a problem, [report it here](https://github.com/voltura/voltura-imdb-poster-browser-skin/issues).
 
 ### Manual installation (alternative)
 
