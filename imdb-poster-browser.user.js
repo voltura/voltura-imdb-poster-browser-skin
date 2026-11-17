@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IMDb Poster Browser
 // @namespace    voltura.imdb.poster-browser
-// @version      1.5.2
+// @version      1.5.3
 // @description  Browse acting, writing, producing and directing credits as posters without leaving an IMDb person's page.
 // @match        https://www.imdb.com/name/nm*
 // @match        https://imdb.com/name/nm*
@@ -82,6 +82,10 @@
       #open {display:inline-block;color:#111;background:#f5c518;text-decoration:none;border-radius:8px;padding:10px 18px;font-weight:650;min-height:44px}
       #counter {font-size:14px;color:#aaa;margin-left:12px}
       [hidden] {display:none!important}
+      @media (max-width:600px), (display-mode:fullscreen) {
+        #content {scrollbar-width:none}
+        #content::-webkit-scrollbar {display:none}
+      }
       @media(max-width:600px) {
         dialog {width:100vw;height:100dvh;max-width:100vw;border:0;border-radius:0}
         header {padding:10px 12px} h2 {font-size:17px}

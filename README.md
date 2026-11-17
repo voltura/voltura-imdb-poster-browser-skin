@@ -20,7 +20,7 @@ If you’ve used the poster browser, [leave an honest review in the Chrome Web S
 
 ### Manual installation (alternative)
 
-1. Download [version 1.5.2](https://imdb.voltura.se/downloads/voltura-imdb-poster-browser-1.5.2.zip) and extract the ZIP into a folder you will keep.
+1. Download [version 1.5.3](https://imdb.voltura.se/downloads/voltura-imdb-poster-browser-1.5.3.zip) and extract the ZIP into a folder you will keep.
 2. Open `chrome://extensions`, enable **Developer mode**, select **Load unpacked**, and choose the extracted folder containing `manifest.json`.
 3. Open or refresh an IMDb person page and click **Browse posters**.
 
